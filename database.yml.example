@@ -1,0 +1,5 @@
+#Sample database file
+username: postgres 
+password: 
+host: localhost
+database: info3404
