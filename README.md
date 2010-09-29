@@ -5,26 +5,39 @@ This is the INFO3404 assignment
 # Setup
 
 You can run the sql files on any postgres database.
-You can benchmark the total running of the files with the time command, like so
-`time psql -U postgres < question?.sql`
+You can benchmark the total running of the files with the time command, like so:
+    `time psql -U postgres < question?.sql`
 To do this without password authentication (the -W flag), you will need to configure pg_hba.conf to allow trusted access.
 
 Ruby has been used to generate test data and benchmark individual statements into the log files. It's not necessary to use it if you don't want to. If you do want to run the rake tasks, you'll need to install git, ruby, rubygems, rake and the ruby-pg gem. 
 
-To get the code
-`git clone git@github.com:Nsewell/info3404.git`
-`cd info3404`
+To get the code:
+    `git clone git@github.com:Nsewell/info3404.git`
+    `cd info3404`
+
 To get the latest version
-`git pull`
+    `git pull`
 
-If you want to get ruby, etc, the current best in breed package manager for OSX is Homebrew.
-http://mxcl.github.com/homebrew/
-http://www.engineyard.com/blog/2010/homebrew-os-xs-missing-package-manager/
+If you want to get ruby, etc, the current best in breed package manager for OSX is [Homebrew](http://mxcl.github.com/homebrew/). [More on installation](http://www.engineyard.com/blog/2010/homebrew-os-xs-missing-package-manager/)
 
-`curl -L http://github.com/mxcl/homebrew/tarball/master | tar xz --strip 1 -C /usr/local` #or wherever you want
-`brew install git ruby` #etc
+    `curl -L http://github.com/mxcl/homebrew/tarball/master | tar xz --strip 1 -C /usr/local` #or wherever you want
+    `brew install git ruby` #etc
 
 # Questions
+
+## Questions 1 to 7 are based on the following schema:
+
+    Employee(ssnum,name,manager,dept,salary,numfriends)
+There is a clustering index on ssnum and nonclustering indexes on name and
+dept each. Ssnum and name each is a key.
+
+    Student(ssnum, name, course, grade)
+Clustering index on ssnum and nonclustering index on name. Ssnum and name
+each is a key.
+
+    Techdept(dept, manager,location)
+Clustering index on dept. Dept is the key. A manager may manage many
+departments. A location may contain many departments.
 
 ## Question 1
 Consider the query: Find all students who are employees.
@@ -32,7 +45,8 @@ One way to express the query is
     SELECT Employee.ssnum
     FROM Employee, Student
     WHERE Employee.name = Student.name
-    Another way is
+
+Another way is
     SELECT Employee.ssnum
     FROM Employee, Student
     WHERE Employee.ssnum = Student.ssnum
