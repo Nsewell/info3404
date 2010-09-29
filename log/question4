@@ -1,0 +1,29 @@
+"SELECT ssnum, salary FROM employee WHERE salary > 40000 AND salary <= 50000 ORDER BY ssnum"
+QUERY PLANSort  (cost=35.29..35.93 rows=257 width=12)
+QUERY PLAN  Sort Key: ssnum
+QUERY PLAN  ->  Seq Scan on employee  (cost=0.00..25.00 rows=257 width=12)
+QUERY PLAN        Filter: ((salary > 40000) AND (salary <= 50000))
+0.00696420669555664
+
+"SELECT ssnum, salary FROM employee WHERE salary > 50000 AND salary <= 60000 ORDER BY ssnum"
+QUERY PLANSort  (cost=34.58..35.19 rows=242 width=12)
+QUERY PLAN  Sort Key: ssnum
+QUERY PLAN  ->  Seq Scan on employee  (cost=0.00..25.00 rows=242 width=12)
+QUERY PLAN        Filter: ((salary > 50000) AND (salary <= 60000))
+0.00412297248840332
+
+"SELECT ssnum, salary FROM employee WHERE salary > 60000 AND salary <= 70000 ORDER BY ssnum"
+QUERY PLANSort  (cost=35.33..35.98 rows=258 width=12)
+QUERY PLAN  Sort Key: ssnum
+QUERY PLAN  ->  Seq Scan on employee  (cost=0.00..25.00 rows=258 width=12)
+QUERY PLAN        Filter: ((salary > 60000) AND (salary <= 70000))
+0.00701284408569336
+
+"SELECT ssnum, salary FROM employee WHERE salary > 70000 AND salary <= 80000 ORDER BY ssnum"
+QUERY PLANSort  (cost=34.58..35.19 rows=242 width=12)
+QUERY PLAN  Sort Key: ssnum
+QUERY PLAN  ->  Seq Scan on employee  (cost=0.00..25.00 rows=242 width=12)
+QUERY PLAN        Filter: ((salary > 70000) AND (salary <= 80000))
+0.00467395782470703
+
+"CREATE OR REPLACE VIEW salary AS SELECT ssnum, salary FROM employee ORDER BY ssnum"

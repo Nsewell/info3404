@@ -14,14 +14,24 @@ def connect(statements)
 end
 
 def bench(statement)
-  if statement != "\n"
-    puts statement
-    puts Benchmark.measure { puts @dbc.query(statement).to_a }
+  if statement != "" and statement != "\n" and statement !~ /^--/
+    log statement.inspect
+    log @dbc.query("EXPLAIN " + statement).to_a
+    log Benchmark.realtime { puts @dbc.query(statement).to_a[0].inspect }
+    log
   end
+end
 
+def log(message="")
+  puts message
+  @log.puts message 
 end
 
 statements = File.read(ARGV[0]).split(';') rescue "SELECT 'bogus';"
-puts statements.inspect
+logfile = File.basename(ARGV[0], '.sql') rescue "log"
 
-connect(statements) {|statement| bench statement}
+puts logfile
+`mkdir -p log/`
+@log = File.new('log/'+logfile, 'w')
+connect(statements) {|statement| bench statement.strip}
+

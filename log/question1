@@ -1,0 +1,18 @@
+"SELECT count(Employee.ssnum) --Concise output\nFROM Employee, Student\nWHERE Employee.name = Student.name"
+QUERY PLANAggregate  (cost=1481.74..1481.75 rows=1 width=8)
+QUERY PLAN  ->  Hash Join  (cost=306.00..1456.69 rows=10019 width=8)
+QUERY PLAN        Hash Cond: ((employee.name)::text = (student.name)::text)
+QUERY PLAN        ->  Seq Scan on employee  (cost=0.00..213.00 rows=10000 width=23)
+QUERY PLAN        ->  Hash  (cost=181.00..181.00 rows=10000 width=15)
+QUERY PLAN              ->  Seq Scan on student  (cost=0.00..181.00 rows=10000 width=15)
+0.032912015914917
+
+"\nSELECT count(Employee.ssnum)\nFROM Employee, Student\nWHERE Employee.ssnum = Student.ssnum"
+QUERY PLANAggregate  (cost=794.00..794.01 rows=1 width=8)
+QUERY PLAN  ->  Hash Join  (cost=306.00..769.00 rows=10000 width=8)
+QUERY PLAN        Hash Cond: (employee.ssnum = student.ssnum)
+QUERY PLAN        ->  Seq Scan on employee  (cost=0.00..213.00 rows=10000 width=8)
+QUERY PLAN        ->  Hash  (cost=181.00..181.00 rows=10000 width=8)
+QUERY PLAN              ->  Seq Scan on student  (cost=0.00..181.00 rows=10000 width=8)
+0.0121109485626221
+

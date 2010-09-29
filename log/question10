@@ -1,0 +1,39 @@
+"SELECT count(*) FROM Employee1, Student1 WHERE salary/12 = stipend"
+QUERY PLANAggregate  (cost=88.03..88.04 rows=1 width=0)
+QUERY PLAN  ->  Hash Join  (cost=33.50..84.12 rows=1562 width=0)
+QUERY PLAN        Hash Cond: ((employee1.salary / 12) = student1.stipend)
+QUERY PLAN        ->  Seq Scan on employee1  (cost=0.00..20.00 rows=1000 width=4)
+QUERY PLAN        ->  Hash  (cost=21.00..21.00 rows=1000 width=4)
+QUERY PLAN              ->  Seq Scan on student1  (cost=0.00..21.00 rows=1000 width=4)
+0.00201892852783203
+
+"SELECT count(*) FROM Employee1, Student1 WHERE salary = (12*stipend + salary % 12)"
+QUERY PLANAggregate  (cost=30044.61..30044.62 rows=1 width=0)
+QUERY PLAN  ->  Nested Loop  (cost=21.00..30042.00 rows=1044 width=0)
+QUERY PLAN        Join Filter: (((12 * student1.stipend) + (employee1.salary % 12)) = employee1.salary)
+QUERY PLAN        ->  Seq Scan on student1  (cost=0.00..21.00 rows=1000 width=4)
+QUERY PLAN        ->  Materialize  (cost=21.00..31.00 rows=1000 width=4)
+QUERY PLAN              ->  Seq Scan on employee1  (cost=0.00..20.00 rows=1000 width=4)
+0.370893001556396
+
+"SELECT count(*) FROM Employee1, Student1 WHERE salary = 12*stipend"
+QUERY PLANAggregate  (cost=76.55..76.56 rows=1 width=0)
+QUERY PLAN  ->  Hash Join  (cost=32.50..73.94 rows=1044 width=0)
+QUERY PLAN        Hash Cond: ((12 * student1.stipend) = employee1.salary)
+QUERY PLAN        ->  Seq Scan on student1  (cost=0.00..21.00 rows=1000 width=4)
+QUERY PLAN        ->  Hash  (cost=20.00..20.00 rows=1000 width=4)
+QUERY PLAN              ->  Seq Scan on employee1  (cost=0.00..20.00 rows=1000 width=4)
+0.00149798393249512
+
+"SELECT count(*) FROM Employee1, Student1 WHERE salary/12.0 = stipend"
+QUERY PLANAggregate  (cost=278.16..278.17 rows=1 width=0)
+QUERY PLAN  ->  Merge Join  (cost=140.66..265.66 rows=5000 width=0)
+QUERY PLAN        Merge Cond: ((((employee1.salary)::numeric / 12.0)) = ((student1.stipend)::numeric))
+QUERY PLAN        ->  Sort  (cost=69.83..72.33 rows=1000 width=4)
+QUERY PLAN              Sort Key: (((employee1.salary)::numeric / 12.0))
+QUERY PLAN              ->  Seq Scan on employee1  (cost=0.00..20.00 rows=1000 width=4)
+QUERY PLAN        ->  Sort  (cost=70.83..73.33 rows=1000 width=4)
+QUERY PLAN              Sort Key: ((student1.stipend)::numeric)
+QUERY PLAN              ->  Seq Scan on student1  (cost=0.00..21.00 rows=1000 width=4)
+0.0151541233062744
+
