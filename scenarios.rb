@@ -43,6 +43,7 @@ end
 Courses = ['info3404', 'info1000', 'info1905', 'info2820', 'comp2007', 'comp2129']
 def depts
   @depts = Array.new
+  @depts << 'acquisitions' #Question2
   10.times do |i| 
     dept = Faker::Name::first_name
     @depts << dept
