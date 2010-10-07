@@ -1,6 +1,14 @@
-SELECT count(*) FROM Employee1, Student1 WHERE salary/12 = stipend;
-SELECT count(*) FROM Employee1, Student1 WHERE salary = (12*stipend + salary % 12);
-SELECT count(*) FROM Employee1, Student1 WHERE salary >= (12*stipend) and salary <= (12*(stipend+1));
+SELECT * 
+FROM Employee1, Student1 
+WHERE salary/12 = stipend;
+
+SELECT * 
+FROM Employee1, Student1 
+WHERE salary = (12*stipend + salary % 12);
+
+SELECT * 
+FROM Employee1, Student1 
+WHERE salary >= (12*stipend) and salary < (12*(stipend+1));
 
 
 

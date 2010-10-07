@@ -1,9 +1,9 @@
-SELECT COUNT(Employee.ssnum)
+SELECT Employee.ssnum
 FROM Employee
 WHERE Employee.name = 'Smith'
 OR Employee.dept = 'acquisitions';
 
-SELECT COUNT(*) FROM (( SELECT Employee.ssnum
+SELECT * FROM (( SELECT Employee.ssnum
  FROM Employee
  WHERE Employee.name = 'Smith' )
 UNION (

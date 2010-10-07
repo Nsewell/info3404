@@ -1,5 +1,10 @@
-SELECT * FROM Employee1 WHERE salary/12 = 4000; 
-SELECT * FROM Employee1 WHERE salary < 4001*12 and salary > 4000*12;
+SELECT * 
+FROM Employee1 
+WHERE salary/12 = 4000; 
+
+SELECT * 
+FROM Employee1 
+WHERE salary < 4001*12 and salary > 4000*12;
 
 
 -- This query runs a comparison, potentially needing to use floating point arithmetic, on each query

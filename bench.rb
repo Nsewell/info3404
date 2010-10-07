@@ -15,10 +15,11 @@ end
 
 def bench(statement)
   if ARGV[0] =~ /question4/ && statement =~ /CREATE/ ; @total = 0; log "Resetting Total"; end #hax
-  log statement.inspect
+  log statement #.inspect
   #log @dbc.query("EXPLAIN " + statement).to_a unless ARGV[0] =~ /question4/ && statement =~ /CREATE/ #hax rescue ""
-  bench = Benchmark.realtime { log @dbc.query(statement).count } 
-  log bench
+  count = ""
+  bench = Benchmark.realtime { count= @dbc.query(statement).count } 
+  log "Got #{count} in #{bench}"
   @total += bench
   #log "total: #{@total}"
   log
