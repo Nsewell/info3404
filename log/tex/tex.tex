@@ -22,19 +22,11 @@
 \file{../question5}
 \file{../question6}
 
-\file{../question7}
+
 \section*{Question 7}
 Please refer to the following:
 
-\begin{lstlisting}
-SELECT AVG(salary) 
-FROM employee 
-WHERE employee.dept = 'information';
-
-SELECT AVG(salary) 
-FROM employee GROUP BY dept 
-HAVING employee.dept = 'information';
-\end{lstlisting}
+\file{../question7}
 According to SQL Standard the HAVING clause restricts the result set after the rows are returned resulting in an extra N I/Os (assuming there are N pages in the table) to compute the attribute restrictions. 
 \\
 \\
