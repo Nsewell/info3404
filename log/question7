@@ -8,15 +8,3 @@ FROM employee
 GROUP BY dept HAVING employee.dept = 'information'
 Got 1 in 0.00109386444091797
 
-\section*{Question 7}
-Please refer to the following:
-
-\begin{lstlisting}
-SELECT AVG(salary) 
-FROM employee 
-WHERE employee.dept = 'information';
-
-SELECT AVG(salary) 
-FROM employee GROUP BY dept 
-HAVING employee.dept = 'information';
-
