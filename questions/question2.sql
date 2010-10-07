@@ -1,17 +1,16 @@
-SELECT Employee.ssnum
+SELECT COUNT(Employee.ssnum)
 FROM Employee
 WHERE Employee.name = 'Smith'
 OR Employee.dept = 'acquisitions';
 
-( SELECT Employee.ssnum
+SELECT COUNT(*) FROM (( SELECT Employee.ssnum
  FROM Employee
  WHERE Employee.name = 'Smith' )
 UNION (
  SELECT Employee.ssnum
  FROM Employee
  WHERE Employee.dept = 'acquisitions'
-);
-
+)) AS foo;
 
 /*
 0.00108218193054199
