@@ -1,1 +1,9 @@
+\section*{Question 1}
+Which of the above two queries is more efficient and under what circumstances ?
+
+The query with ssnums is substantially faster.
+Ssnum is a big integer, while the name is a variable length character string that can be a much larger size and takes longer to hash.
+There is a clustered index on ssnum which makes lookup faster than the unclustered index on name.
+
+Ssnums are always guaranteed to be unique, while names may not necissarily be so.
 
