@@ -1,1 +1,24 @@
+\section*{Question 2}
+Find employees with the name Smith or who are in the acquisitions department. Is there another way to write this query. Which one is perhaps more efficient?
+
+A UNION statement can be used to get the same result. Marginal difference in time were observed, with the UNION statement slower, because it runs two queries. 
+
+The first query does one sequential scan, matching each row against two conditions
+\begin{lstlisting}
+Seq Scan on employee  (cost=0.00..25.00 rows=88 width=8)
+  -> Filter: (((name)::text = 'Smith'::text) OR ((dept)::text = 'acquisitions'::text))
+\end{lstlisting}
+
+The second query takes longer, needing to run two sequential scans, and a sort.
+\begin{lstlisting}
+Unique  (cost=48.72..49.16 rows=88 width=8)
+  ->  Sort  (cost=48.72..48.94 rows=88 width=8)
+        Sort Key: public.employee.ssnum
+        ->  Append  (cost=0.00..45.88 rows=88 width=8)
+              ->  Seq Scan on employee  (cost=0.00..22.50 rows=2 width=8)
+                    Filter: ((name)::text = 'Smith'::text)
+              ->  Seq Scan on employee  (cost=0.00..22.50 rows=86 width=8)
+                    Filter: ((dept)::text = 'acquisitions'::text)
+\end{lstlisting}
+
 
