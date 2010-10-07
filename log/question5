@@ -1,28 +1,15 @@
-"SELECT count(ssnum) FROM employee JOIN techdept on techdept.dept = employee.dept"
-QUERY PLANAggregate  (cost=47.38..47.39 rows=1 width=8)
-QUERY PLAN  ->  Hash Join  (cost=11.12..44.88 rows=1000 width=8)
-QUERY PLAN        Hash Cond: ((employee.dept)::text = (techdept.dept)::text)
-QUERY PLAN        ->  Seq Scan on employee  (cost=0.00..20.00 rows=1000 width=15)
-QUERY PLAN        ->  Hash  (cost=10.50..10.50 rows=50 width=516)
-QUERY PLAN              ->  Seq Scan on techdept  (cost=0.00..10.50 rows=50 width=516)
-0.00127387046813965
+SELECT ssnum 
+FROM employee 
+JOIN techdept ON techdept.dept = employee.dept
+Got 484 in 0.00474810600280762
 
-"SELECT count(ssnum) FROM employee JOIN (select dept from techdept) t on t.dept = employee.dept"
-QUERY PLANAggregate  (cost=47.38..47.39 rows=1 width=8)
-QUERY PLAN  ->  Hash Join  (cost=11.12..44.88 rows=1000 width=8)
-QUERY PLAN        Hash Cond: ((employee.dept)::text = (techdept.dept)::text)
-QUERY PLAN        ->  Seq Scan on employee  (cost=0.00..20.00 rows=1000 width=15)
-QUERY PLAN        ->  Hash  (cost=10.50..10.50 rows=50 width=516)
-QUERY PLAN              ->  Seq Scan on techdept  (cost=0.00..10.50 rows=50 width=516)
-0.0061028003692627
+SELECT ssnum 
+FROM employee JOIN (select dept from techdept) t 
+ON t.dept = employee.dept
+Got 484 in 0.00746488571166992
 
-"SELECT count(ssnum) FROM employee where dept IN (SELECT dept FROM techdept)"
-QUERY PLANAggregate  (cost=47.38..47.39 rows=1 width=8)
-QUERY PLAN  ->  Hash IN Join  (cost=11.12..44.88 rows=1000 width=8)
-QUERY PLAN        Hash Cond: ((employee.dept)::text = (techdept.dept)::text)
-QUERY PLAN        ->  Seq Scan on employee  (cost=0.00..20.00 rows=1000 width=15)
-QUERY PLAN        ->  Hash  (cost=10.50..10.50 rows=50 width=516)
-QUERY PLAN              ->  Seq Scan on techdept  (cost=0.00..10.50 rows=50 width=516)
-0.00127911567687988
+SELECT ssnum 
+FROM employee 
+WHERE dept IN (SELECT dept FROM techdept)
+Got 484 in 0.00216794013977051
 
-"/*\nThe first query, without any subqueries, is the most efficient.\n\nThe third query is substantially slower, and the main difference seems to be the hash IN join, and so it is speculated that this is slower.\n\n\"SELECT count(ssnum) FROM employee JOIN techdept on techdept.dept = employee.dept\"\nQUERY PLANAggregate  (cost=47.38..47.39 rows=1 width=8)\nQUERY PLAN  ->  Hash Join  (cost=11.12..44.88 rows=1000 width=8)\nQUERY PLAN        Hash Cond: ((employee.dept)::text = (techdept.dept)::text)\nQUERY PLAN        ->  Seq Scan on employee  (cost=0.00..20.00 rows=1000 width=15)\nQUERY PLAN        ->  Hash  (cost=10.50..10.50 rows=50 width=516)\nQUERY PLAN              ->  Seq Scan on techdept  (cost=0.00..10.50 rows=50 width=516)\n{\"count\"=>\"567\"}\n0.00127196311950684\ntotal: 0.00127196311950684\n\n\"SELECT count(ssnum) FROM employee JOIN (select dept from techdept) t on t.dept = employee.dept\"\nQUERY PLANAggregate  (cost=47.38..47.39 rows=1 width=8)\nQUERY PLAN  ->  Hash Join  (cost=11.12..44.88 rows=1000 width=8)\nQUERY PLAN        Hash Cond: ((employee.dept)::text = (techdept.dept)::text)\nQUERY PLAN        ->  Seq Scan on employee  (cost=0.00..20.00 rows=1000 width=15)\nQUERY PLAN        ->  Hash  (cost=10.50..10.50 rows=50 width=516)\nQUERY PLAN              ->  Seq Scan on techdept  (cost=0.00..10.50 rows=50 width=516)\n{\"count\"=>\"567\"}\n0.00116086006164551\ntotal: 0.00243282318115234\n\n\"SELECT count(ssnum) FROM employee where dept IN (SELECT dept FROM techdept)\"\nQUERY PLANAggregate  (cost=47.38..47.39 rows=1 width=8)\nQUERY PLAN  ->  Hash IN Join  (cost=11.12..44.88 rows=1000 width=8)\nQUERY PLAN        Hash Cond: ((employee.dept)::text = (techdept.dept)::text)\nQUERY PLAN        ->  Seq Scan on employee  (cost=0.00..20.00 rows=1000 width=15)\nQUERY PLAN        ->  Hash  (cost=10.50..10.50 rows=50 width=516)\nQUERY PLAN              ->  Seq Scan on techdept  (cost=0.00..10.50 rows=50 width=516)\n{\"count\"=>\"567\"}\n0.00590205192565918\ntotal: 0.00833487510681152\n\n*/"

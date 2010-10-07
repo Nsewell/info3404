@@ -1,0 +1,10 @@
+SELECT AVG(salary) 
+FROM employee 
+WHERE employee.dept = 'information'
+Got 1 in 0.00285696983337402
+
+SELECT AVG(salary) 
+FROM employee 
+GROUP BY dept HAVING employee.dept = 'information'
+Got 1 in 0.00109386444091797
+

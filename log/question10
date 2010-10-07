@@ -1,27 +1,15 @@
-"SELECT count(*) FROM Employee1, Student1 WHERE salary/12 = stipend"
-QUERY PLANAggregate  (cost=88.70..88.71 rows=1 width=0)
-QUERY PLAN  ->  Hash Join  (cost=33.50..84.66 rows=1616 width=0)
-QUERY PLAN        Hash Cond: ((employee1.salary / 12) = student1.stipend)
-QUERY PLAN        ->  Seq Scan on employee1  (cost=0.00..20.00 rows=1000 width=4)
-QUERY PLAN        ->  Hash  (cost=21.00..21.00 rows=1000 width=4)
-QUERY PLAN              ->  Seq Scan on student1  (cost=0.00..21.00 rows=1000 width=4)
-0.00175309181213379
+SELECT * 
+FROM Employee1, Student1 
+WHERE salary/12 = stipend
+Got 181 in 0.00583004951477051
 
-"SELECT count(*) FROM Employee1, Student1 WHERE salary = (12*stipend + salary % 12)"
-QUERY PLANAggregate  (cost=30044.64..30044.65 rows=1 width=0)
-QUERY PLAN  ->  Nested Loop  (cost=21.00..30042.00 rows=1055 width=0)
-QUERY PLAN        Join Filter: (((12 * student1.stipend) + (employee1.salary % 12)) = employee1.salary)
-QUERY PLAN        ->  Seq Scan on student1  (cost=0.00..21.00 rows=1000 width=4)
-QUERY PLAN        ->  Materialize  (cost=21.00..31.00 rows=1000 width=4)
-QUERY PLAN              ->  Seq Scan on employee1  (cost=0.00..20.00 rows=1000 width=4)
-0.365633964538574
+SELECT * 
+FROM Employee1, Student1 
+WHERE salary = (12*stipend + salary % 12)
+Got 181 in 0.450423002243042
 
-"SELECT count(*) FROM Employee1, Student1 WHERE salary >= (12*stipend) and salary <= (12*(stipend+1))"
-QUERY PLANAggregate  (cost=32819.78..32819.79 rows=1 width=0)
-QUERY PLAN  ->  Nested Loop  (cost=21.00..32542.00 rows=111111 width=0)
-QUERY PLAN        Join Filter: ((employee1.salary >= (12 * student1.stipend)) AND (employee1.salary <= (12 * (student1.stipend + 1))))
-QUERY PLAN        ->  Seq Scan on student1  (cost=0.00..21.00 rows=1000 width=4)
-QUERY PLAN        ->  Materialize  (cost=21.00..31.00 rows=1000 width=4)
-QUERY PLAN              ->  Seq Scan on employee1  (cost=0.00..20.00 rows=1000 width=4)
-0.261648893356323
+SELECT * 
+FROM Employee1, Student1 
+WHERE salary >= (12*stipend) and salary < (12*(stipend+1))
+Got 181 in 0.367162942886353
 

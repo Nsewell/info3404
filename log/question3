@@ -1,4 +1,17 @@
-"SELECT 'bogus';"
-QUERY PLANResult  (cost=0.00..0.01 rows=1 width=0)
-0.000171899795532227
+SELECT max(salary), dept 
+FROM employee 
+GROUP BY dept
+Got 12 in 0.00328397750854492
+
+-- Uses GROUP BY
+
+SELECT dept,salary 
+FROM employee E 
+WHERE salary >= ALL (SELECT salary FROM employee WHERE dept = E.dept)
+Got 12 in 0.0386269092559814
+
+SELECT max(salary),dept 
+FROM deptsalaries 
+GROUP BY dept
+Got 10 in 0.0013270378112793
 

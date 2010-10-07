@@ -1,49 +1,45 @@
-"DROP INDEX IF EXISTS employee_idx"
-0
-0.00248289108276367
+DROP INDEX IF EXISTS employee_idx
+Got 0 in 0.00224900245666504
 
-"SELECT ssnum, salary FROM employee WHERE salary > 40000 AND salary <= 50000 ORDER BY ssnum"
-249
-0.00320005416870117
+SELECT ssnum, salary FROM employee 
+WHERE salary > 40000 AND salary <= 50000 ORDER BY ssnum
+Got 257 in 0.00292301177978516
 
-"SELECT ssnum, salary FROM employee WHERE salary > 50000 AND salary <= 60000 ORDER BY ssnum"
-268
-0.00652313232421875
+SELECT ssnum, salary FROM employee 
+WHERE salary > 50000 AND salary <= 60000 ORDER BY ssnum
+Got 228 in 0.0018010139465332
 
-"SELECT ssnum, salary FROM employee WHERE salary > 60000 AND salary <= 70000 ORDER BY ssnum"
-244
-0.0018010139465332
+SELECT ssnum, salary FROM employee 
+WHERE salary > 60000 AND salary <= 70000 ORDER BY ssnum
+Got 265 in 0.00667691230773926
 
-"SELECT ssnum, salary FROM employee WHERE salary > 70000 AND salary <= 80000 ORDER BY ssnum"
-239
-0.0018470287322998
+SELECT ssnum, salary FROM employee 
+WHERE salary > 70000 AND salary <= 80000 ORDER BY ssnum
+Got 250 in 0.00162005424499512
 
 Resetting Total
-"CREATE INDEX employee_idx\n  ON Employee\n  USING btree\n  (ssnum)"
-0
-0.0177700519561768
+CREATE INDEX employee_idx
+  ON Employee
+  USING btree
+  (ssnum)
+Got 0 in 0.0130589008331299
 
-"ALTER TABLE Employee CLUSTER ON employee_idx"
-0
-0.000928878784179688
+ALTER TABLE Employee CLUSTER ON employee_idx
+Got 0 in 0.00508904457092285
 
-"SELECT ssnum, salary FROM employee WHERE salary > 40000 AND salary <= 50000 ORDER BY ssnum"
-249
-0.00194096565246582
+SELECT ssnum, salary FROM employee 
+WHERE salary > 40000 AND salary <= 50000 ORDER BY ssnum
+Got 257 in 0.00195193290710449
 
-"SELECT ssnum, salary FROM employee WHERE salary > 50000 AND salary <= 60000 ORDER BY ssnum"
-268
-0.00198197364807129
+SELECT ssnum, salary FROM employee 
+WHERE salary > 50000 AND salary <= 60000 ORDER BY ssnum
+Got 228 in 0.00300288200378418
 
-"SELECT ssnum, salary FROM employee WHERE salary > 60000 AND salary <= 70000 ORDER BY ssnum"
-244
-0.0032951831817627
+SELECT ssnum, salary FROM employee 
+WHERE salary > 60000 AND salary <= 70000 ORDER BY ssnum
+Got 265 in 0.00419902801513672
 
-"SELECT ssnum, salary FROM employee WHERE salary > 70000 AND salary <= 80000 ORDER BY ssnum"
-239
-0.00235199928283691
-
-"/*\nSELECT ssnum, salary FROM salary WHERE salary > 40000 AND salary <= 50000\nSELECT ssnum, salary FROM salary WHERE salary > 50000 AND salary <= 60000\nSELECT ssnum, salary FROM salary WHERE salary > 60000 AND salary <= 70000\nSELECT ssnum, salary FROM salary WHERE salary > 70000 AND salary <= 80000\n*/"
-0
-0.000259876251220703
+SELECT ssnum, salary FROM employee 
+WHERE salary > 70000 AND salary <= 80000 ORDER BY ssnum
+Got 250 in 0.00199007987976074
 
