@@ -39,23 +39,21 @@ morecomment=[l]{//}
 }
 
 \newcommand{\file}[1]{
-
-
-\lstinputlisting{#1}
-%\VerbatimInput[baselinestretch=1,fontsize=\footnotesize,numbers=left]{#1}
+\lstinputlisting{../#1}
+\input{questions/#1.tex}
 \newpage
 }
 
 \begin{document}
-\file{../question1}
-\file{../question2}
-\file{../question3}
-\file{../question4}
-\file{../question5}
-\file{../question6}
-\file{../question7}
-\file{../question8}
-\file{../question9}
-\file{../question10}
+\file{question1}
+\file{question2}
+\file{question3}
+\file{question4}
+\file{question5}
+\file{question6}
+\file{question7}
+\file{question8}
+\file{question9}
+\file{question10}
 \end{document}
 

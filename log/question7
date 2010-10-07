@@ -19,26 +19,4 @@ WHERE employee.dept = 'information';
 SELECT AVG(salary) 
 FROM employee GROUP BY dept 
 HAVING employee.dept = 'information';
-\end{lstlisting}
-According to SQL Standard the HAVING clause restricts the result set after the rows are returned resulting in an extra N I/Os (assuming there are N pages in the table) to compute the attribute restrictions. 
-\\
-\\
-So in relational algebra using the having clause this would be:
-\\
-\\
-the average of:\\
-$\sigma_{dept='information'}(\Pi_{salary}(employment))$
-\\
-\\
-\\
-using the where clause the relational algebra would be:
-\\
-\\
-$\Pi_{salary}(\sigma_{dept='information'}(employment))$
-\\
-\\
-This however assumes that the DBMS doesnÕt have a query optimiser. In this particular case the Having clause simply serves the purpose of the where clause, so the GROUP BY clause is only added as a syntax construct; which without optimisation will actually sort the table. 
-
-With query optimisation the having clause is interpreted as a selection and is pushed, the aggregate function AVG is used so it is known that only one tuple is going to be returned and GROUP BY (executed by sorting) does not need to be executed.
-This is the reason why both queries are the same selectivity however one (using the HAVING clause) may require slightly more computing in the optimiser which is minuscule.
 
