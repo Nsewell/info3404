@@ -36,5 +36,6 @@ puts logfile
 `mkdir -p log/`
 @log = File.new('log/'+logfile, 'w')
 @total = 0
-connect(statements) {|statement| bench statement.strip if statement != "" and statement.length > 3 and statement != "\n" and statement !~ /^--/}
+Comments = /(^--|^\/\*)/
+connect(statements) {|statement| bench statement.strip if statement.length > 3 and statement !~ Comments }
 
