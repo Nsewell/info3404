@@ -10,8 +10,40 @@
 \captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
 \usepackage{fancyvrb }
 
+\lstset{
+%basicstyle=\footnotesize\ttfamily, % Standardschrift
+numbers=left,               % Ort der Zeilennummern
+numberstyle=\tiny,          % Stil der Zeilennummern
+stepnumber=5,               % Abstand zwischen den Zeilennummern
+numbersep=5pt,              % Abstand der Nummern zum Text
+tabsize=2,                  % Groesse von Tabs
+extendedchars=true,         %
+%breaklines=true,            % Zeilen werden Umgebrochen
+keywordstyle=\color{blue},
+%frame=b,         
+%        keywordstyle=[1]\textbf,    % Stil der Keywords
+%        keywordstyle=[2]\textbf,    %
+%        keywordstyle=[3]\textbf,    %
+%        keywordstyle=[4]\textbf,   \sqrt{\sqrt{}} %
+stringstyle=\color{red}\ttfamily, % Farbe der String
+showspaces=false,           % Leerzeichen anzeigen ?
+showtabs=false,             % Tabs anzeigen ?
+xleftmargin=17pt,
+framexleftmargin=17pt,
+framexrightmargin=5pt,
+framexbottommargin=4pt,
+%backgroundcolor=\color{lightgray},
+showstringspaces=false,
+language=SQL,
+morecomment=[l]{//}
+}
+
 \newcommand{\file}[1]{
-\VerbatimInput[baselinestretch=1,fontsize=\footnotesize,numbers=left]{#1};\newpage
+
+
+\lstinputlisting{#1}
+%\VerbatimInput[baselinestretch=1,fontsize=\footnotesize,numbers=left]{#1}
+\newpage
 }
 
 \begin{document}
