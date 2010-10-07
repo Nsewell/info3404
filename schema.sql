@@ -1,6 +1,6 @@
 DROP SEQUENCE IF EXISTS ssnums; 
 CREATE SEQUENCE ssnums START 1;
-CREATE sequence sq;
+-- CREATE sequence sq;
 
 -- Tables
 DROP TABLE IF EXISTS techdept; 
@@ -57,5 +57,13 @@ CREATE INDEX techdept_idx
   ON TechDept
   USING btree
   (dept);
-
 ALTER TABLE TechDept CLUSTER ON techdept_idx;
+
+/*
+CREATE INDEX employee_idx
+  ON Employee
+  USING btree
+  (ssnum);
+
+ALTER TABLE Employee CLUSTER ON employee_idx;
+*/

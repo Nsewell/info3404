@@ -1,69 +1,49 @@
+"DROP INDEX IF EXISTS employee_idx"
+0
+0.00248289108276367
+
 "SELECT ssnum, salary FROM employee WHERE salary > 40000 AND salary <= 50000 ORDER BY ssnum"
-QUERY PLANSort  (cost=35.81..36.48 rows=268 width=12)
-QUERY PLAN  Sort Key: ssnum
-QUERY PLAN  ->  Seq Scan on employee  (cost=0.00..25.00 rows=268 width=12)
-QUERY PLAN        Filter: ((salary > 40000) AND (salary <= 50000))
-0.00195097923278809
-total: 0.00195097923278809
+249
+0.00320005416870117
 
 "SELECT ssnum, salary FROM employee WHERE salary > 50000 AND salary <= 60000 ORDER BY ssnum"
-QUERY PLANSort  (cost=34.16..34.74 rows=233 width=12)
-QUERY PLAN  Sort Key: ssnum
-QUERY PLAN  ->  Seq Scan on employee  (cost=0.00..25.00 rows=233 width=12)
-QUERY PLAN        Filter: ((salary > 50000) AND (salary <= 60000))
-0.00688719749450684
-total: 0.00883817672729492
+268
+0.00652313232421875
 
 "SELECT ssnum, salary FROM employee WHERE salary > 60000 AND salary <= 70000 ORDER BY ssnum"
-QUERY PLANSort  (cost=34.25..34.84 rows=235 width=12)
-QUERY PLAN  Sort Key: ssnum
-QUERY PLAN  ->  Seq Scan on employee  (cost=0.00..25.00 rows=235 width=12)
-QUERY PLAN        Filter: ((salary > 60000) AND (salary <= 70000))
-0.00170588493347168
-total: 0.0105440616607666
+244
+0.0018010139465332
 
 "SELECT ssnum, salary FROM employee WHERE salary > 70000 AND salary <= 80000 ORDER BY ssnum"
-QUERY PLANSort  (cost=35.62..36.28 rows=264 width=12)
-QUERY PLAN  Sort Key: ssnum
-QUERY PLAN  ->  Seq Scan on employee  (cost=0.00..25.00 rows=264 width=12)
-QUERY PLAN        Filter: ((salary > 70000) AND (salary <= 80000))
-0.00169587135314941
-total: 0.012239933013916
+239
+0.0018470287322998
 
 Resetting Total
-"CREATE OR REPLACE VIEW salary AS SELECT ssnum, salary FROM employee ORDER BY ssnum"
-0.00209808349609375
-total: 0.00209808349609375
+"CREATE INDEX employee_idx\n  ON Employee\n  USING btree\n  (ssnum)"
+0
+0.0177700519561768
 
-"SELECT ssnum, salary FROM salary WHERE salary > 40000 AND salary <= 50000"
-QUERY PLANSort  (cost=35.81..36.48 rows=268 width=12)
-QUERY PLAN  Sort Key: employee.ssnum
-QUERY PLAN  ->  Seq Scan on employee  (cost=0.00..25.00 rows=268 width=12)
-QUERY PLAN        Filter: ((salary > 40000) AND (salary <= 50000))
-0.0055689811706543
-total: 0.00766706466674805
+"ALTER TABLE Employee CLUSTER ON employee_idx"
+0
+0.000928878784179688
 
-"SELECT ssnum, salary FROM salary WHERE salary > 50000 AND salary <= 60000"
-QUERY PLANSort  (cost=34.16..34.74 rows=233 width=12)
-QUERY PLAN  Sort Key: employee.ssnum
-QUERY PLAN  ->  Seq Scan on employee  (cost=0.00..25.00 rows=233 width=12)
-QUERY PLAN        Filter: ((salary > 50000) AND (salary <= 60000))
-0.00166893005371094
-total: 0.00933599472045898
+"SELECT ssnum, salary FROM employee WHERE salary > 40000 AND salary <= 50000 ORDER BY ssnum"
+249
+0.00194096565246582
 
-"SELECT ssnum, salary FROM salary WHERE salary > 60000 AND salary <= 70000"
-QUERY PLANSort  (cost=34.25..34.84 rows=235 width=12)
-QUERY PLAN  Sort Key: employee.ssnum
-QUERY PLAN  ->  Seq Scan on employee  (cost=0.00..25.00 rows=235 width=12)
-QUERY PLAN        Filter: ((salary > 60000) AND (salary <= 70000))
-0.00172519683837891
-total: 0.0110611915588379
+"SELECT ssnum, salary FROM employee WHERE salary > 50000 AND salary <= 60000 ORDER BY ssnum"
+268
+0.00198197364807129
 
-"SELECT ssnum, salary FROM salary WHERE salary > 70000 AND salary <= 80000"
-QUERY PLANSort  (cost=35.62..36.28 rows=264 width=12)
-QUERY PLAN  Sort Key: employee.ssnum
-QUERY PLAN  ->  Seq Scan on employee  (cost=0.00..25.00 rows=264 width=12)
-QUERY PLAN        Filter: ((salary > 70000) AND (salary <= 80000))
-0.00178289413452148
-total: 0.0128440856933594
+"SELECT ssnum, salary FROM employee WHERE salary > 60000 AND salary <= 70000 ORDER BY ssnum"
+244
+0.0032951831817627
+
+"SELECT ssnum, salary FROM employee WHERE salary > 70000 AND salary <= 80000 ORDER BY ssnum"
+239
+0.00235199928283691
+
+"/*\nSELECT ssnum, salary FROM salary WHERE salary > 40000 AND salary <= 50000\nSELECT ssnum, salary FROM salary WHERE salary > 50000 AND salary <= 60000\nSELECT ssnum, salary FROM salary WHERE salary > 60000 AND salary <= 70000\nSELECT ssnum, salary FROM salary WHERE salary > 70000 AND salary <= 80000\n*/"
+0
+0.000259876251220703
 
