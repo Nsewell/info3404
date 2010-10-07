@@ -1,3 +1,7 @@
-select name, salary, employee.dept from employee join (select employee.dept, avg(salary) from employee join (select dept from techdept) n on n.dept = employee.dept group by employee.dept) k on k.avg = employee.salary;
+SELECT dept, avg(salary) from employee e where dept in (SELECT dept from techdept) group by dept;
+SELECT employee.dept, AVG(salary) from employee join techdept on employee.dept = techdept.dept group by employee.dept;
 
---? WTF?
+/*
+The join is faster
+
+*/

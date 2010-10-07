@@ -1,0 +1,10 @@
+"SELECT * FROM Employee1 WHERE salary/12 = 4000"
+QUERY PLANSeq Scan on employee1  (cost=0.00..25.00 rows=5 width=49)
+QUERY PLAN  Filter: ((salary / 12) = 4000)
+0.00091099739074707
+
+"SELECT * FROM Employee1 WHERE salary < 4001*12 and salary > 4000*12"
+QUERY PLANSeq Scan on employee1  (cost=0.00..25.00 rows=1 width=49)
+QUERY PLAN  Filter: ((salary < 48012) AND (salary > 48000))
+0.000641822814941406
+

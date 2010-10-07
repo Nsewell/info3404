@@ -1,0 +1,18 @@
+"SELECT dept, avg(salary) from employee e where dept in (SELECT dept from techdept) group by dept"
+QUERY PLANHashAggregate  (cost=49.88..50.01 rows=11 width=11)
+QUERY PLAN  ->  Hash IN Join  (cost=11.12..44.88 rows=1000 width=11)
+QUERY PLAN        Hash Cond: ((e.dept)::text = (techdept.dept)::text)
+QUERY PLAN        ->  Seq Scan on employee e  (cost=0.00..20.00 rows=1000 width=11)
+QUERY PLAN        ->  Hash  (cost=10.50..10.50 rows=50 width=516)
+QUERY PLAN              ->  Seq Scan on techdept  (cost=0.00..10.50 rows=50 width=516)
+0.00158810615539551
+
+"SELECT employee.dept, AVG(salary) from employee join techdept on employee.dept = techdept.dept group by employee.dept"
+QUERY PLANHashAggregate  (cost=49.88..50.01 rows=11 width=11)
+QUERY PLAN  ->  Hash Join  (cost=11.12..44.88 rows=1000 width=11)
+QUERY PLAN        Hash Cond: ((employee.dept)::text = (techdept.dept)::text)
+QUERY PLAN        ->  Seq Scan on employee  (cost=0.00..20.00 rows=1000 width=11)
+QUERY PLAN        ->  Hash  (cost=10.50..10.50 rows=50 width=516)
+QUERY PLAN              ->  Seq Scan on techdept  (cost=0.00..10.50 rows=50 width=516)
+0.00142884254455566
+

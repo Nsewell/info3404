@@ -14,12 +14,14 @@ def connect(statements)
 end
 
 def bench(statement)
-  if statement != "" and statement != "\n" and statement !~ /^--/
-    log statement.inspect
-    log @dbc.query("EXPLAIN " + statement).to_a
-    log Benchmark.realtime { puts @dbc.query(statement).to_a[0].inspect }
-    log
-  end
+  if ARGV[0] =~ /question4/ && statement =~ /CREATE/ ; @total = 0; log "Resetting Total"; end #hax
+  log statement.inspect
+  log @dbc.query("EXPLAIN " + statement).to_a unless ARGV[0] =~ /question4/ && statement =~ /CREATE/ #hax
+  bench = Benchmark.realtime { puts @dbc.query(statement).to_a[0].inspect }
+  log bench
+  @total += bench
+  #log "total: #{@total}"
+  log
 end
 
 def log(message="")
@@ -33,5 +35,6 @@ logfile = File.basename(ARGV[0], '.sql') rescue "log"
 puts logfile
 `mkdir -p log/`
 @log = File.new('log/'+logfile, 'w')
-connect(statements) {|statement| bench statement.strip}
+@total = 0
+connect(statements) {|statement| bench statement.strip if statement != "" and statement.length > 3 and statement != "\n" and statement !~ /^--/}
 

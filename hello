@@ -1,0 +1,7 @@
+HTTP/1.1 200 OK
+Strict-Transport-Security: max-age=16070400; includeSubDomains
+Content-Type: text/html; charset=utf-8
+Content-Length: 2393
+Date: Wed, 06 Oct 2010 11:54:34 GMT
+Server: lighttpd/1.4.26
+
