@@ -1,2 +1,12 @@
 \section*{Question 10}
+The option of dividing the employee salary by 12 seems to be a quicker method because of optimisation made by the DBMS. The DBMS creates a temporary hash table on the employee1 table and uses that hash and a scan of students1 to satisfy the join. There is obviously a reason why the DBMS has created a temporary hash table and that is because it can fit the hash table of the relation on the buffer. 
+On the other hand multiplying the stipend from the student's table does not use a hash-join but nested loops and hence the higher cost and more time required to compute the query.
 
+\subsection*{Index on both salary and stipend}
+If there is a Hash-index on both attributes a Hash-join will be used and the cost will be less than the original query. As in the original query a hash is only used for one relation and not both.
+
+\subsection*{Sizes of Relations}
+If the relation employee1 is much larger than student1, some implications might occur. One of these may include not Hashing employee1 table and hence having to perform a nested-loop join. However, if the student1 table is much larger and the employee1 table is the same size then this would probably affect the query greatly, as the employee1 relation would still be hashed but scanning the student1 table will take much longer.
+
+\subsection*{Use of Indexes}
+If both relations are index using a B+Tree clustered index and both are very large then sorting will be efficient and a Merge Join may be used to execute the join. Using a hash index on both relations will result in a Hash Join which is also very efficient.
